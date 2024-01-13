@@ -17,14 +17,15 @@ import { RouterLink, RouterView } from "vue-router";
 
 <style scoped lang="sass">
 a
-  margin-right: 3%
+  margin-right: 2%
+  padding: 1%
   text-decoration: none
   color: lch(88.82% 0 18)
   
   &:hover
-    padding: 1%
     border-radius: 15px 
-    background-color: lch(26.76% 0 18)
+    background-color: lch(55% 3.87 273.18)
+    color: black
 
 nav
   margin-bottom: 10%
