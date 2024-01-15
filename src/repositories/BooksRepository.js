@@ -13,9 +13,17 @@ export default class BooksRepository {
     }
 
     async addBook(book) {
-        console.log(book)
         try {
             await axios.post(`${SERVER}/books`, book)
+        } catch (error) {
+            throw new Error(`Error: ${error}`)
+        }
+    }
+
+    async updateBook(book) {
+        //actualizar libro
+        try {
+            await axios.post(`${SERVER}/books/${book.id}`, book)
         } catch (error) {
             throw new Error(`Error: ${error}`)
         }
@@ -24,6 +32,15 @@ export default class BooksRepository {
     async removeBook(id) {
         try {
             await axios.delete(`${SERVER}/books/${id}`)
+        } catch (error) {
+            throw Error(`Error: ${error}`)
+        }
+    }
+
+    async findBookById(id) {
+        try {
+            const response = await axios.get(`${SERVER}/books/${id}`)
+            return response.data
         } catch (error) {
             throw Error(`Error: ${error}`)
         }

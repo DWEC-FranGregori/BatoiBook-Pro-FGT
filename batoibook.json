@@ -1969,13 +1969,13 @@
     {
       "id": 15,
       "idUser": "",
-      "idModule": "0099",
+      "idModule": "0017",
       "publisher": "SL",
-      "price": 30,
-      "pages": 256,
-      "status": "good",
+      "price": 40,
+      "pages": 400,
+      "status": "new",
       "photo": null,
-      "comments": null,
+      "comments": "Libro editado",
       "soldDate": null
     }
   ]

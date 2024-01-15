@@ -1,7 +1,9 @@
 <template>
   <div class="messages">
-    {{ messages.error[0] }}
-    {{ messages.succes }}
+    <div class="message">
+      <button @click="remove">x</button>
+      <p>{{ messages.error[0] }}</p>
+    </div>
   </div>
   <div>
     <h1>Añadir Libro</h1>
@@ -82,6 +84,11 @@ const submit = async (e) => {
   }
 }
 
+const remove = (e) => {
+  e.target.parentNode.remove(e.target.parentNode)
+  removeErrorMessage(messages.error[0])
+}
+
 </script>
 
 <style scoped lang="sass">
@@ -92,6 +99,12 @@ label
   display: block
   margin-top: 5%
   margin-bottom: 1%
+
+select
+  padding-left: 2% 
+  border: none
+  height: 2em
+  text-align: center
 
 input[type="text"],input[type="number"]
   padding-left: 2% 
@@ -104,8 +117,16 @@ textarea
   resize: none
   width: 100%
   height: 6em
+  
 button
   margin-top: 5%
   display: block
+
+message
+  padding: 3%
+  width: 100%
+  background-color: red
+  align-items: center
+  display: inline-block
 
 </style>

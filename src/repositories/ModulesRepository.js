@@ -21,9 +21,17 @@ export default class ModulesRepository {
     }
 
     async addModule({ module }) {
-        console.log(module)
         try {
             await axios.post(`${SERVER}/modules`, module)
+        } catch (error) {
+            throw new Error(`Error: ${error}`)
+        }
+    }
+
+    async findModuleByCode(code) {
+        try {
+            const response = await axios.post(`${SERVER}/modules`, code)
+            return response.data
         } catch (error) {
             throw new Error(`Error: ${error}`)
         }

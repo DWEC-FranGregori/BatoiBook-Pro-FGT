@@ -1,9 +1,10 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import BooksView from "../views/BooksView.vue";
-import CreateBookView from "../views/CreateBookView.vue";
-import CartView from "../views/CartView.vue";
-import AboutView from "../views/AboutView.vue";
+import { createRouter, createWebHistory } from "vue-router"
+import HomeView from "../views/HomeView.vue"
+import BooksView from "../views/BooksView.vue"
+import CreateBookView from "../views/CreateBookView.vue"
+import EditBookForm from "../views/EditBookForm.vue"
+import CartView from "../views/CartView.vue"
+import AboutView from "../views/AboutView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,7 +34,13 @@ const router = createRouter({
       name: "about",
       component: AboutView,
     },
+    {
+      path: "/edit/:id",
+      name: "edit",
+      component: EditBookForm,
+      props: true
+    }
   ],
-});
+})
 
-export default router;
+export default router
