@@ -7,31 +7,36 @@
   </div>
   <div>
     <h1>Añadir Libro</h1>
-    <form @submit.prevent.stop="submit">
+    <Form @submit.prevent.stop="submit" :validation-schema="schema">
       <!--Modules-->
       <label for="publisher">Módulo</label>
-      <select name="module" @change="change">
+      <Field as="select" name="module" @change="change">
         <option value="" selected>Seleccione un módulo</option>
-        <option v-for=" module  in  modules " :key="module.code" :value="module.code">{{ module.cliteral }}</option>
-      </select>
+        <option v-for="module  in  modules" :key="module.code" :value="module.code">{{ module.cliteral }}</option>
+      </Field>
+      <ErrorMessage name="module" />
 
       <!--Publisher-->
       <label for="publisher">Editorial</label>
-      <input type="text" v-model="book.publisher" />
+      <Field type="text" v-model="book.publisher" name="publisher" />
+      <ErrorMessage name="publisher" />
 
       <!--Price-->
       <label for="price">Precio</label>
-      <input type="number" v-model="book.price" />
+      <Field type="number" v-model="book.price" name="price" />
+      <ErrorMessage name="price" />
 
       <!--Pages-->
       <label for="pages">Páginas</label>
-      <input type="number" v-model="book.pages" />
+      <Field type="number" v-model="book.pages" name="pages" />
+      <ErrorMessage name="pages" />
 
       <!--Status-->
       <label for="status">Estado</label>
-      <input type="radio" value="new" v-model="book.status">new
-      <input type="radio" value="good" v-model="book.status">good
-      <input type="radio" value="bad" v-model="book.status">bad
+      <Field type="radio" value="new" v-model="book.status" name="status" />new
+      <Field type="radio" value="good" v-model="book.status" name="status" />good
+      <Field type="radio" value="bad" v-model="book.status" name="status" />bad
+      <ErrorMessage name="status" />
 
       <!--Comments-->
       <label for="comments">Comentarios</label>
@@ -39,23 +44,33 @@
 
       <button type="submit">Enviar</button>
 
-    </form>
+    </Form>
   </div>
 </template>
 
 <script setup>
+import { Field, Form, ErrorMessage } from 'vee-validate'
+import * as yup from 'yup'
+
 import { onMounted, ref } from 'vue'
 
 import { useModulesStore } from '@/stores/modules'
 const modulesStore = useModulesStore()
 const { modules } = modulesStore
 
-import { useBookFormStore } from '@/stores/messages/BookFormMessages';
+import { useBookFormStore } from '@/stores/messages/BookFormMessages'
 const formMessages = useBookFormStore()
 const { messages, addSuccessMessage, addErrorMessage, removeSuccessMesage, removeErrorMessage } = formMessages
 
 import BooksRepository from '@/repositories/BooksRepository'
 
+const schema = yup.object({
+  module: yup.string().required('Campo obligatorio'),
+  publisher: yup.string().required('Campo obligatorio').min(2, 'Mínimo 2 caracteres').max(5, 'Máixmo 5 caracteres'),
+  price: yup.number().required('Campo obligatorio').min(0, 'Números negativos no válidos').max(1000, 'No puede superar los 1000'),
+  pages: yup.number().required('Campo obligatorio').min(0, 'Números negativos no válidos').max(10000, 'No puede superar los 10000'),
+  status: yup.string().required('Campo obligatorio')
+})
 
 let book = ref({ id: null, idUser: "", idModule: "", publisher: null, price: null, pages: null, status: null, photo: null, comments: null, soldDate: null })
 
@@ -117,7 +132,7 @@ textarea
   resize: none
   width: 100%
   height: 6em
-  
+
 button
   margin-top: 5%
   display: block
@@ -128,5 +143,10 @@ message
   background-color: red
   align-items: center
   display: inline-block
+
+span
+  margin-top: 1%
+  color: lch(43.24% 80.23 36.4)
+  display: block
 
 </style>
