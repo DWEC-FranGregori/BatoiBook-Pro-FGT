@@ -3,7 +3,7 @@
     <img src="" alt="portada libro" />
     <div>
       <h5>
-        {{ findModuleByCode(book.idModule).cliteral + " (" + book.id + ")" }}
+        {{ findModuleByCode(book.idModule) + " (" + book.id + ")" }}
       </h5>
       <h6>{{ book.publisher }}</h6>
       <p>Precio: {{ book.price }} €</p>
@@ -24,16 +24,16 @@
 </template>
 
 <script setup>
-import { useModulesStore } from "@/stores/modules";
-const moduleStore = useModulesStore();
+import { useModulesStore } from "@/stores/modules"
+const moduleStore = useModulesStore()
 
-import { useCartStore } from "@/stores/cart";
+import { useCartStore } from "@/stores/cart"
 const cartStore = useCartStore();
 
-const { findModuleByCode } = moduleStore;
-const { removeBook } = cartStore;
+const { findModuleByCode } = moduleStore
+const { removeBook } = cartStore
 
-const props = defineProps(["book"]);
+const props = defineProps(["book"])
 
 const remove = () => {
   if (
@@ -41,9 +41,9 @@ const remove = () => {
       `¿Quieres eliminar el libro ${props.book.id} con módulo ${props.book.idModule}?`
     )
   ) {
-    return;
+    return
   }
-  removeBook(props.book.id);
+  removeBook(props.book.id)
 };
 </script>
 

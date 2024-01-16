@@ -91,11 +91,9 @@ const submit = async (e) => {
   try {
     await repository.addBook(book.value)
     addSuccessMessage('Libro añadido con éxito')
-    console.log(messages.success)
     e.target.reset()
   } catch (error) {
     addErrorMessage('Error, no se pudo añadir el libro')
-    console.error(error)
   }
 }
 

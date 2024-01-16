@@ -2,26 +2,34 @@ import { computed, ref } from "vue"
 import { defineStore } from "pinia"
 
 export const useCartStore = defineStore("cart", () => {
-  let cart = ref([])
+  let items = ref([])
+
+  if (localStorage.Cart != null) {
+    items.value = JSON.parse(localStorage.Cart)
+  }
+
 
   function addBook(book) {
-    cart.value.push(book)
+    items.value.push(book)
+    localStorage.Cart = JSON.stringify(items.value)
   }
 
   function removeBook(id) {
-    const indexToRemove = cart.value.findIndex(book => book.id === id);
-    cart.value.splice(indexToRemove, 1);
+    const indexToRemove = items.value.findIndex(book => book.id === id)
+    items.value.splice(indexToRemove, 1)
+    localStorage.Cart = items.value
   }
 
   const totalPrice = computed(() => {
-    return cart.value.reduce((accumulator, book) => {
+    return items.value.reduce((accumulator, book) => {
       return accumulator + book.price
     }, 0)
   })
 
   function clear() {
-    cart.value.splice(0, cart.value.length)
+    items.value.splice(0, items.value.length)
+    localStorage.removeItem('Cart')
   }
 
-  return { cart, addBook, removeBook, totalPrice, clear }
+  return { items, addBook, removeBook, totalPrice, clear }
 })
