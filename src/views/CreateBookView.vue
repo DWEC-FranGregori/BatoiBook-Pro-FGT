@@ -7,7 +7,7 @@
   </div>
   <div>
     <h1>Añadir Libro</h1>
-    <Form @submit.prevent.stop="submit" :validation-schema="schema">
+    <Form @submit="submit" :validation-schema="schema">
       <!--Modules-->
       <label for="publisher">Módulo</label>
       <Field as="select" name="module" @change="change">

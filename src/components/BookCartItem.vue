@@ -36,13 +36,10 @@ const { removeBook } = cartStore
 const props = defineProps(["book"])
 
 const remove = () => {
-  if (
-    !confirm(
-      `¿Quieres eliminar el libro ${props.book.id} con módulo ${props.book.idModule}?`
-    )
-  ) {
+  if (!confirm
+    (`¿Quieres eliminar el libro ${props.book.id} con módulo ${props.book.idModule}?`))
     return
-  }
+
   removeBook(props.book.id)
 };
 </script>

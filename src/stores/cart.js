@@ -8,7 +8,6 @@ export const useCartStore = defineStore("cart", () => {
     items.value = JSON.parse(localStorage.Cart)
   }
 
-
   function addBook(book) {
     items.value.push(book)
     localStorage.Cart = JSON.stringify(items.value)
@@ -28,7 +27,7 @@ export const useCartStore = defineStore("cart", () => {
 
   function clear() {
     items.value.splice(0, items.value.length)
-    localStorage.removeItem('Cart')
+    localStorage.Cart = []
   }
 
   return { items, addBook, removeBook, totalPrice, clear }
